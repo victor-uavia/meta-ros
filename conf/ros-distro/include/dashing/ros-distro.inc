@@ -31,3 +31,15 @@ ROS_SUPERFLORE_GENERATED_BUILDTOOLS += " \
     rosidl-typesupport-fastrtps-c-native \
     uncrustify-vendor-native \
 "
+
+ROS_UNRESOLVED_PLATFORM_PKG_pyqt5-dev-tools = ""
+ROS_UNRESOLVED_PLATFORM_PKG_libboost-system-dev = "boost"
+
+ROS_UNRESOLVED_PLATFORM_PKG_qttools5-dev-tools = ""
+
+ROS_UNRESOLVED_PLATFORM_PKG_maven-native = ""
+ROS_UNRESOLVED_PLATFORM_PKG_libcunit-dev = ""
+ROS_UNRESOLVED_PLATFORM_PKG_python3-pyqt5.qtwebengine = ""
+ROS_UNRESOLVED_PLATFORM_PKG_clang-tidy = ""
+
+ROS_UNRESOLVED_PLATFORM_PKG_java-native = ""
