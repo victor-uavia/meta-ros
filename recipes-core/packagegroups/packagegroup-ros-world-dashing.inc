@@ -41,6 +41,7 @@ RDEPENDS_${PN}_remove = "ros-testing"
 # |   with components: [EigenSparse, SparseLinearAlgebraLibrary,
 # |   SchurSpecializations, OpenMP, Multithreading].
 RDEPENDS_${PN}_remove = "cartographer"
+RDEPENDS_${PN}_remove = "cartographer-ros"
 
 # do_compile() failed to build .a:
 # NOTE: VERBOSE=1 cmake --build .../fmi-adapter/0.1.4-1-r0/build --target all -- -j 24
@@ -62,8 +63,14 @@ RDEPENDS_${PN}_remove = "teleop-twist-joy"
 # OE won't let us build ffmpeg unless LICENSE_FLAGS_WHITELIST contains "commerical".
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('LICENSE_FLAGS_WHITELIST', 'commercial', '', 'ffmpeg', d)}"
 
+# Depends on Java
+RDEPENDS_${PN}_remove = "cyclonedds"
+RDEPENDS_${PN}_remove = "cyclonedds-cmake-module"
+RDEPENDS_${PN}_remove = "cyclonedds-cmake-module-native"
+RDEPENDS_${PN}_remove = "rmw-cyclonedds-cpp"
+
 # behaviortree-cpp-v3 and behaviortree-cpp are mutually exclusive.
-RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-behaviortree-cpp-v3', 'behaviortree-cpp', 'behaviortree-cpp-v3', d)}"
+RDEPENDS_${PN}_remove = "behaviortree-cpp-v3"
 
 # desktop RDEPENDS on rviz packages.
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-desktop ros-rviz', '', 'desktop', d)}"
@@ -78,6 +85,9 @@ RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-realsense'
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-realsense', '', 'realsense-camera-msgs', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-realsense', '', 'realsense-ros2-camera', d)}"
 
+RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'py-trees-js', d)}"
+RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'py-trees-ros-tutorials', d)}"
+RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'py-trees-ros-viewer', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'python-qt-binding', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'qt-dotgraph', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-qt5', '', 'qt-gui', d)}"
@@ -99,6 +109,7 @@ RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-publisher', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-py-common', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-py-console', d)}"
+RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-reconfigure', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-service-caller', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-shell', d)}"
 RDEPENDS_${PN}_remove = "${@bb.utils.contains('DISTRO_FEATURES', 'ros-rqt ros-qt5', '', 'rqt-srv', d)}"
