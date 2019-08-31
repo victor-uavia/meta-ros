@@ -3,6 +3,8 @@
 ROS_BUILD_DEPENDS += " \
     fastcdr \
     fastrtps \
+    rosidl-adapter-native \
+    rosidl-parser-native \
 "
 
 # usr/share/builtin_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake contains:
