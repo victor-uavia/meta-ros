@@ -1,8 +1,7 @@
 # Copyright (c) 2019 LG Electronics, Inc.
 
-ROS_BUILD_DEPENDS += " \
-    fastcdr \
-    fastrtps \
+ROS_BUILDTOOL_DEPENDS += " \
+    rosidl-parser-native \
 "
 
 # usr/share/builtin_interfaces/cmake/ament_cmake_export_dependencies-extras.cmake contains:
