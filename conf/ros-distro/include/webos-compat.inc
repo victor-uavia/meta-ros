@@ -36,8 +36,10 @@ RDEPENDS_python3-ptest_remove_libc-glibc = " \
     locale-base-tr-tr.iso-8859-9 \
 "
 
+RPI_KERNEL_DEVICETREE_3BPLUS_raspberrypi3 = "bcm2710-rpi-3-b-plus.dtb"
+RPI_KERNEL_DEVICETREE_3BPLUS_raspberrypi3-64 = "broadcom/bcm2710-rpi-3-b-plus.dtb"
 RPI_KERNEL_DEVICETREE_append_rpi = " \
-    bcm2710-rpi-3-b-plus.dtb \
+    ${RPI_KERNEL_DEVICETREE_3BPLUS} \
 "
 
 # webos-rpi.inc _removes "kernel-modules" from MACHINE_EXTRA_RRECOMMENDS, and _remove happens last, so we can't add it back to

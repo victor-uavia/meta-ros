@@ -37,5 +37,7 @@ DEPENDS += " \
 RDEPENDS_${PN} = "message-runtime"
 
 COMPATIBLE_MACHINE = "^rpi$"
+# aarch64 userland doesn't provide mmal needed by raspicam-node
+COMPATIBLE_MACHINE_aarch64 = "^$"
 
 PNBLACKLIST[raspicam-node] = "${@'' if d.getVar('ROS_VERSION', True) == '1' else 'raspicam-node is ROS 1 only'}"

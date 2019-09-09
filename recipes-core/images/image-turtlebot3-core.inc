@@ -14,6 +14,8 @@ TURTLEBOT3_PACKAGES_CAMERA_rpi ??= " \
     compressed-image-transport \
     raspicam-node \
 "
+# no mmal in aarch64 userland
+TURTLEBOT3_PACKAGES_CAMERA_rpi_aarch64 = ""
 TURTLEBOT3_PACKAGES_CAMERA ??= ""
 
 # From http://emanual.robotis.com/docs/en/platform/turtlebot3/raspberry_pi_3_setup/#3-install-dependent-packages-on-turtlebot-pc
