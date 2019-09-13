@@ -21,3 +21,6 @@ ROS_SUPERFLORE_GENERATED_BUILDTOOLS += " \
 
 # "lapack" needs FORTRAN support
 require conf/ros-distro/include/enable-fortran.inc
+
+# Unblacklist Python 2 in case this sublayer in being used with a ROS 2 sublayer.
+PNBLACKLIST[python] = ""
