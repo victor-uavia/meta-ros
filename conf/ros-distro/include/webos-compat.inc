@@ -68,6 +68,9 @@ After=webos-ibd.target
 !
 }
 
+# XXX The recipe for "v4l-utils" is in meta-multimedia => add it to ros1-*.mcf
+ROS_UNRESOLVED_PLATFORM_PKG_v4l-utils = "v4l-utils"
+
 # Undo blacklisting
 PNBLACKLIST[libfreenect] ?= ""
 PNBLACKLIST[freenect-camera] ?= ""
