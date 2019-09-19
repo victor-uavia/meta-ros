@@ -1,35 +1,54 @@
 # /bin/sh
 device_hostname="tb3-01"
-# This is NOT a static IP address to assign to the WiFi interface, but the address DHCP gave it.
-device_ip4_addr="192.168.0.104"
+
 device_wifi_ssid="TP-Link_ACF6"
-device_wifi_password="XXXXXXXX
-device_ros_distro="melodic"
+device_wifi_password="XXXXXXXX"
+
 device_set_model="export TURTLEBOT3_MODEL=waffle_pi"
+
+# Set this if the device will run a ROS 1 image.
+device_ros1_distro="melodic"
+
+# If the device is running ROS 1 and will be communicating with remote ROS nodes, set this to the address DHCP gave the network
+# interface that will be used.
+device_ipv4_addr="192.168.0.101"
+
+# If the device is running ROS 1 and "roscore" will be run on another ROS node, use this the value for ROS_MASTER_URI. NB. The
+# default port is 11311.
+device_master_uri=""
+
 
 if [ $(hostname) != $device_hostname ]; then
     hostnamectl set-hostname $device_hostname
 fi
 
-[ -w /home/root/.profile ] && sed -i -e '/^# DEVICE-CFG-BEGIN/,/^# DEVICE-CFG-END/ d' /home/root/.profile
-cat <<! >> ~/.profile
-# DEVICE-CFG-BEGIN
-export ROS_HOSTNAME=$device_ip4_addr
-export ROS_MASTER_URI=http://$device_ip4_addr:11311
-if [ -r /opt/ros/$device_ros_distro/setup.sh ]; then
-    source /opt/ros/$device_ros_distro/setup.sh
-else
-    # Handle ROS 2 built with layer version 2.
-    source ros_setup.sh
-fi
-# ROS_HOSTNAME and ROS_MASTER_URI are ROS 1 only.
-if [ "\$ROS_VERSION" != "1" ]; then
-    unset ROS_HOSTNAME
-    unset ROS_MASTER_URI
-fi
-# DEVICE-CFG-END
-!
 
 luna-send -n 1 -f luna://com.webos.service.wifi/setstate '{"state": "enabled" }'
-sleep 1
+# Empirically determined:
+sleep 2
 luna-send -n 1 -f luna://com.webos.service.wifi/connect '{"ssid": "'$device_wifi_ssid'", "security": {"securityType": "psk", "simpleSecurity": {"passKey": "'$device_wifi_password'"} } }'
+
+
+[ -w /home/root/.profile ] && sed -i -e '/^# WEBOS-DEVICE-CONFIG-BEGIN/,/^# WEBOS-DEVICE-CONFIG-END/ d' /home/root/.profile
+cat <<! >> ~/.profile
+# WEBOS-DEVICE-CONFIG-BEGIN
+$device_set_model
+
+# Set up the ROS workspace, if necessary. NB. If device_* setting used below are changed, you can re-source this file, but you
+# will need to re-login for the environment to be set correctly.
+if [ -n "$device_ros1_distro" -a -r /opt/ros/$device_ros1_distro/setup.sh ]; then
+    # Running under ROS 1. If the image was not built with the "ros-implicit-workspace" setting in IMAGE_FEATURES, or if it was,
+    # but different values for ROS_IP or ROS_MASTER_URI from the defaults are needed, we need to source setup.sh again.
+    [ -n "$device_ipv4_addr" ]  && export ROS_IP=$device_ipv4_addr
+    [ -n "$device_master_uri" ] && export ROS_MASTER_URI=$device_master_uri
+    [ -z "\$ROS_VERSION" -o -n "$device_ipv4_addr$device_master_uri" ] && source /opt/ros/$device_ros1_distro/setup.sh
+else
+    # Set up the ROS 2 workspace if it hasn't been already (ie, the image was not built with the "ros-implicit-workspace" setting
+    # in IMAGE_FEATURES).
+    if [ -n "\$ROS_VERSION" ]; then
+        source ros_setup.sh
+    fi
+fi
+
+# WEBOS-DEVICE-CONFIG-END
+!
