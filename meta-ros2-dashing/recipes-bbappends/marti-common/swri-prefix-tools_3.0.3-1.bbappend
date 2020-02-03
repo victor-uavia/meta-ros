@@ -1,4 +1,4 @@
-# Copyright (c) 2019 LG Electronics, Inc.
+# Copyright (c) 2019-2020 LG Electronics, Inc.
 
 ROS_EXEC_DEPENDS_remove = "python-psutil"
 ROS_EXEC_DEPENDS_append = " python3-psutil"
@@ -12,4 +12,4 @@ RDEPENDS_${PN} += "bash"
 # meta-ros2-dashing layer is included
 VIRTUAL-RUNTIME_bash ?= "bash"
 RDEPENDS_${PN}_append_class-target_webos = " ${VIRTUAL-RUNTIME_bash}"
-RDEPENDS_${PN}_remove_webos = "bash"
+RDEPENDS_${PN}_remove_class-target_webos = "${@oe.utils.conditional('WEBOS_PREFERRED_PROVIDER_FOR_BASH', 'busybox', 'bash', '', d)}"
