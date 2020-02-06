@@ -23,6 +23,9 @@ require conf/ros-distro/include/melodic/ros-distro-preferred-providers.inc
 ROS_SUPERFLORE_GENERATED_BUILDTOOLS += " \
 "
 
+# roslisp depends on sbcl, for which there is no OE recipe
+ROS_WORLD_SKIP_GROUPS += "lisp"
+
 # Must use a _pn- override in this file to override the ROS_BUILD_TYPE of a generated recipe,
 # because we need to set this variable before the "inherit" line in the recipe is parsed,
 # and having it in a .bbappend sets it too late.
