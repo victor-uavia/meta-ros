@@ -8,3 +8,4 @@
 PREFERRED_PROVIDER_libyaml = "libyaml-vendor"
 PREFERRED_PROVIDER_libyaml-dev = "libyaml-vendor-dev"
 PREFERRED_PROVIDER_libyaml-dbg = "libyaml-vendor-dbg"
+PREFERRED_PROVIDER_libyaml-native = "libyaml-vendor-native"
